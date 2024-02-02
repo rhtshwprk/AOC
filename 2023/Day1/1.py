@@ -25,6 +25,9 @@ def oneB(list):
 
     alphaDigitMap = {'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9}
 
+    # TODO
+    # Check for letters and then run
+
     total = 0
 
     f= -1
@@ -40,7 +43,8 @@ def oneB(list):
             if(str[j].isdigit()):
                 l = int(str[j]) if l==-1 else l
             
-            leftNum=
+            leftNum+=str[i]
+            rightNum = str[j]+rightNum
 
             i+=1
             j-=1
@@ -56,7 +60,7 @@ def oneB(list):
 def main():
     list = []
 
-    with open ('1.txt') as fd:
+    with open ('2023/Day1/1.txt') as fd:
         for line in fd:
             list.append(line)
     
