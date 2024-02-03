@@ -28,29 +28,47 @@ def oneB(list):
     # TODO
     # Check for letters and then run
 
+
     total = 0
 
-    f= -1
-    l= -1
-    leftNum=''
-    rightNum=''
     for str in list:
-        i = 0
-        j = len(str)-1
+        # print(str)
+        i=0
+        j=len(str)-1
+        fIndex = -1
+        rIndex = -1
+
+        f= -1
+        l= -1
+
+        for alpha,num in alphaDigitMap.items():
+            leftOcc = str.find(alpha)
+            rightOcc = str.rfind(alpha)
+
+            if(leftOcc !=-1):
+                if(fIndex == -1 or fIndex>leftOcc):
+                    fIndex = leftOcc
+                    f = num
+                    # print(f"left num: {f}, fIndex:{fIndex}")
+                if(rIndex == -1 or rIndex<rightOcc):
+                    rIndex = rightOcc
+                    l= num
+                    # print(f"right num: {l}, fIndex:{rIndex}")
+
         while(True):
             if(str[i].isdigit()):
-                f = int(str[i]) if f==-1 else f
+                if(fIndex>i or fIndex ==-1):
+                    f = int(str[i])
+                    fIndex=i
             if(str[j].isdigit()):
-                l = int(str[j]) if l==-1 else l
-            
-            leftNum+=str[i]
-            rightNum = str[j]+rightNum
-
+                if(rIndex<j or rIndex ==-1):
+                    l = int(str[j])
+                    rIndex=j
             i+=1
             j-=1
-            if (f!=-1 and l!=-1):
+            if (f!=-1 and l!=-1 and i>=fIndex and j<=rIndex):
                 total+= 10*f + l
-                # print(f'{str} {(10*f+l)}')
+                print(f'{str} {(10*f+l)}')
                 f=-1
                 l=-1
                 break
@@ -60,11 +78,11 @@ def oneB(list):
 def main():
     list = []
 
-    with open ('2023/Day1/1.txt') as fd:
+    with open ('1.txt') as fd:
         for line in fd:
             list.append(line)
     
-    print(oneA(list))
+    # print(oneA(list))
     print(oneB(list))
 
 if __name__ == '__main__':
