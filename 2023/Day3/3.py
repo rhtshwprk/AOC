@@ -1,18 +1,55 @@
 def main():
     input = []
-    with open('./3.txt') as fd:
+    input_2=[]
+    with open('./example.txt') as fd:
         for line in fd:
             input.append(list(line[0:(len(line)-1 if line[len(line)-1]=='\n' else len(line))]))  #removes newline escapes from the lists except for last line
-            
-    # print(input)
-    print(f"output: {sum_calculator(input)}")
+
+    #this code type converts digits (character => integer)      
+    for i,line in enumerate(input):
+        for j,x in enumerate(line):
+            if(x.isdigit()):
+                input[i][j] = int(x)
+            else:
+                input[i][j] = x
+
+    #this code converts all digits to the number they constitute
+    for i,line in enumerate(input):
+        l = len(line)
+        num = 0
+        numberIndices=[]
+        for j,x in enumerate(line):
+            if(isinstance(x,int)):
+                num = num*10+x
+                numberIndices.append(j)
+                if(j==l-1 or line[j+1]=='.' or not isinstance(line[j+1], int)):   
+                    for index in numberIndices:
+                        input[i][index]=num
+                    num=0
+                    numberIndices = []
+    #[467, 467, 467, '.', '.', 114, 114, 114, '.', '.']
+    #['.', '.', '.', '*', '.', '.', '.', '.', '.', '.']
+    #['.', '.',  35, 35,  '.', '.', 633, 633, 633, '.']
+    #['.', '.', '.', '.', '.', '.', '#', '.', '.', '.']
+    #[617, 617, 617, '*', '.', '.', '.', '.', '.', '.']
+    #['.', '.', '.', '.', '.', '+', '.',  58,  58, '.']
+    #['.', '.', 592, 592, 592, '.', '.', '.', '.', '.']
+    #['.', '.', '.', '.', '.', '.', 755, 755, 755, '.']
+    #['.', '.', '.', '$', '.', '*', '.', '.', '.', '.']
+    #['.', 664, 664, 664, '.', 598, 598, 598, '.', '.']
+                    
+    for line in input:
+        print(line)                 
+
+    # print(f"output: {sum_calculator(input)}")
+    # print(f"sum of gear ratios: ${sumGear(input)})
 
 def printSymbols(input):
     symbols={}
     symStr= ""
     for line in input:
         for x in line:
-            if(not x.isdigit() and not x=='.'):
+            if(not isinstance(x,int) or not x.isdigit() and not x=='.'):
                 symbols[x]=1
     
     for value in symbols:
