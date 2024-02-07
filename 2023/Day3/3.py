@@ -1,7 +1,7 @@
 def main():
     input = []
     input_2=[]
-    with open('./example.txt') as fd:
+    with open('./3.txt') as fd:
         for line in fd:
             input.append(list(line[0:(len(line)-1 if line[len(line)-1]=='\n' else len(line))]))  #removes newline escapes from the lists except for last line
 
@@ -42,7 +42,7 @@ def main():
         print(line)                 
 
     # print(f"output: {sum_calculator(input)}")
-    # print(f"sum of gear ratios: ${sumGear(input)})
+    print(f"sum of gear ratios: {gearRatioCalculator(input)}")
 
 def printSymbols(input):
     symbols={}
@@ -128,6 +128,28 @@ def sum_calculator(input):
         ##
     return sum
 
+def gearRatioCalculator(input):
+    sum = 0
+    for i, line in enumerate(input):
+        for j, x in enumerate(line):
+            if(x == '*'):
+                adjacentNums = []
+                for i1 in range(i-1,i+2):
+                    adjacentNumsInLine = []
+                    for j1 in range (j-1,j+2):
+                        if(i1>=0 and i1<len(input) and j1>=0 and j1<=len(line)):
+                            # print(f"check {i1}/{j1} for * {i}/{j}")
+                            if (isinstance(input[i1][j1],int)):
+                                if (not input[i1][j1] in adjacentNumsInLine):
+                                    adjacentNumsInLine.append(input[i1][j1])
+                    adjacentNums.extend(adjacentNumsInLine)
+                print(adjacentNums)
+                if(len(adjacentNums)==2):
+                    sum+= adjacentNums[0]*adjacentNums[1]
+    
+    return sum
+                            
+            
 if __name__ == '__main__':
     main()
 
