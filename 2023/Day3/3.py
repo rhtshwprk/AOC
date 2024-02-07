@@ -1,6 +1,6 @@
 def main():
     input = []
-    input_2=[]
+    
     with open('./3.txt') as fd:
         for line in fd:
             input.append(list(line[0:(len(line)-1 if line[len(line)-1]=='\n' else len(line))]))  #removes newline escapes from the lists except for last line
